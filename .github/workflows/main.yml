@@ -2,14 +2,17 @@ name: next.js Application
 on:
   push:
     branches: [master , main]
+  pull:
+    branches: [master, main]
 jobs:
   nextjs_Application:
+    runs-on: ubuntu-latest
     steps:
       - name: checkoutcode
         uses: actions/checkout@v3
       - name: install npm
         uses: actions/setup-node@v4
-        with:
+        wuth:
             node-version: '18'
       - name: Running test
         uses: npm test
