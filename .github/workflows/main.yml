@@ -1,27 +1,18 @@
-name : Build and Deploy
-
+name: next.js Application
 on:
   push:
-    branches:
-      - main
-  pull:
-    branches:
-      - main
-
-job:
-  build:
-    run-on: ubuntu-latest
+    branches: [master , main]
+jobs:
+  nextjs_Application:
     steps:
-      - name: checkout code
+      - name: checkoutcode
         uses: actions/checkout@v3
-      - name: setup node.js
-        uses: actions/setup-node@v3
-        with:
-           node version: '20'
-      - name: install Dependences
-        uses: npm install
-      - name: Build project
-        uses: npm run build
-      - name: Run Test
+      - name: install npm
+        uses: actions/setup-node@v4
+        wuth:
+            node-version: '18'
+      - name: Running test
         uses: npm test
+      - name: Verify Application is Running
+        uses: curl --retry 5 --retry-delay 10 --retry-connrefused http://localhost:3000
         
