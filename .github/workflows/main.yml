@@ -1,5 +1,7 @@
-name: Node.js CI Workflow
 
+name: Build and Test
+
+# Triggers the workflow on push or pull request events for the main branch
 on:
   push:
     branches:
@@ -10,25 +12,31 @@ on:
 
 jobs:
   build:
+    # The environment where the job runs
     runs-on: ubuntu-latest
 
+    # Steps to execute
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      # Step 1: Checkout the repository
+      - name: Checkout Code
+        uses: actions/checkout@v3
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '18'
+      # Step 2: Set up Node.js (or other environment, e.g., Python)
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18' # Specify the Node.js version
 
-    - name: Install dependencies
-      run: npm install
+      # Step 3: Install dependencies (for a Node.js project, modify if using another language)
+      - name: Install Dependencies
+        run: npm install
 
-    - name: Build the project
-      run: npm run build
+      # Step 4: Run build (Modify the command for your project)
+      - name: Build Project
+        run: npm run build
 
-    - name: Running test
-      run: npm test
+      # Step 5: Run tests (Modify the command based on your testing framework)
+      - name: Run Tests
+        run: npm test
 
-    - name: Verify Application is Running
-      uses: curl --retry 5 --retry-delay 10 --retry-connrefused http://localhost:3000
+  # You can add more jobs or steps as needed for your specific project
