@@ -12,10 +12,12 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18' 
+      - name: Install dependencies
+        run: npm install
       - name: Build the project
-        uses: npm run build
+        run: npm run build
       - name: Running test
-        uses: npm test
+        run: npm test
       - name: Verify Application is Running
         uses: curl --retry 5 --retry-delay 10 --retry-connrefused http://localhost:3000
         
